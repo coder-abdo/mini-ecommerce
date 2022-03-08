@@ -1,34 +1,23 @@
 import { Component } from "react";
 import { gql, getApolloContext } from "@apollo/client";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PageDetailsList from "./pages/PageDetailList";
+import ProductDescription from "./pages/ProductDescription";
+import Cart from "./pages/Cart";
+import Navbar from "./components/Navbar";
 import "./App.css";
 const data = gql`
   {
     categories {
-      products {
-        id
-        name
-        inStock
-        gallery
-        description
-        category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
-        prices {
-          currency {
-            label
-            symbol
-          }
-        }
-        brand
-      }
+      name
+    }
+  }
+`;
+const currencies = gql`
+  {
+    currencies {
+      label
+      symbol
     }
   }
 `;
@@ -37,26 +26,33 @@ class App extends Component {
   static contextType = ctx;
   state = {
     categories: [],
-    cart: null,
+    currencies: [],
+    cart: [],
     total: 0,
   };
   async componentDidMount() {
     this.setState({
       categories: (await this.context.client.query({ query: data })).data
         .categories,
+      currencies: (await this.context.client.query({ query: currencies })).data
+        .currencies,
     });
   }
   render() {
     return (
-      <div>
-        {this.state.categories.map((category) => (
-          <ul key={category}>
-            {category.products.map((product) => (
-              <li key={product.id}>{product.name}</li>
-            ))}
-          </ul>
-        ))}
-      </div>
+      <>
+        <Navbar
+          cateogries={this.state.categories}
+          currencies={this.state.currencies}
+        />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={PageDetailsList} />
+            <Route path="/products/:id" component={ProductDescription} />
+            <Route path="/cart" component={Cart} />
+          </Switch>
+        </Router>
+      </>
     );
   }
 }
