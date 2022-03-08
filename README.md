@@ -13,6 +13,8 @@ By Me Abdelmonaem a Software Enginner.
 1. React JS (Class Based Components).
 2. React-Router-Dom (for Routing).
 3. Apollo-Client (handle graphQL requests).
+4. React-Router-DOM V4 (handle Routing)
+5. Sass (Styling)
 
 ### How to run the Application:
 
