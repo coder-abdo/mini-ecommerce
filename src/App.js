@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageDetailsList from "./pages/PageDetailList";
 import ProductDescription from "./pages/ProductDescription";
 import Cart from "./pages/Cart";
-import Navbar from "./components/Navbar";
-import "./App.css";
+import Navbar from "./components/navbar";
+import styles from "./App.module.scss";
 const data = gql`
   {
     categories {
@@ -40,7 +40,7 @@ class App extends Component {
   }
   render() {
     return (
-      <>
+      <div className={styles.container}>
         <Navbar
           cateogries={this.state.categories}
           currencies={this.state.currencies}
@@ -52,7 +52,7 @@ class App extends Component {
             <Route path="/cart" component={Cart} />
           </Switch>
         </Router>
-      </>
+      </div>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-
+import styles from "./style.module.scss";
 export default class Logo extends Component {
   render() {
     return (
-      <div className="logo">
+      <div className={styles.logo}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 197.091 197.091">
           <path d="M32.131 184.928c-18.388 0-31.573-2.505-32.131-2.616l.734-7.648c32.349 0 55.555-8.45 68.964-25.098 15.174-18.835 13.532-43.34 12.394-51.811H25.918l85.588-85.592 85.585 85.592h-53.976c-6.8 75.732-72.193 87.173-110.984 87.173zm12.433-94.9h43.912l.673 3.028c.311 1.432 7.476 35.341-13.381 61.302-8.425 10.475-20.113 18.041-34.94 22.651 42.867-1.882 90.753-18.714 94.861-83.362l.229-3.618h42.527l-66.939-66.946-66.942 66.945z" />
         </svg>

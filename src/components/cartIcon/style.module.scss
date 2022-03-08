@@ -1,0 +1,11 @@
+.cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+  svg {
+    width: 3rem;
+  }
+}

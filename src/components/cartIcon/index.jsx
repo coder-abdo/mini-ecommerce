@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-
+import styles from "./style.module.scss";
 export default class CartIcon extends Component {
   render() {
     return (
-      <div className="cart">
+      <div className={styles.cart}>
         <svg
           enable-background="new 0 0 486.569 486.569"
           version="1.1"
