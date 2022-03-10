@@ -3,7 +3,10 @@
   justify-content: center;
   align-items: center;
 }
-
+@mixin fontStyle($fz: 1.8rem, $fw: 400) {
+  font-size: $fz;
+  font-weight: $fw;
+}
 @mixin flex($dir: row, $jc: flex-start, $ai: flex-start) {
   display: flex;
   flex-direction: $dir;

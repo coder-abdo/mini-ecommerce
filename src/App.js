@@ -26,9 +26,12 @@ class App extends Component {
   static contextType = ctx;
   state = {
     categories: [],
+    category: "all",
     currencies: [],
     cart: [],
     total: 0,
+    currency: "$",
+    isClicked: false,
   };
   async componentDidMount() {
     this.setState({
@@ -38,12 +41,34 @@ class App extends Component {
         .currencies,
     });
   }
+  handleClick = (e) => {
+    this.setState({
+      currency: e.target.dataset.currency,
+      isClicked: false,
+    });
+  };
+  toggleMenu = (e) => {
+    this.setState({
+      isClicked: !this.state.isClicked,
+    });
+  };
+  clickCategory = (e) => {
+    this.setState({
+      category: e.target.dataset.chosen,
+    });
+  };
   render() {
     return (
       <div className={styles.container}>
         <Navbar
           cateogries={this.state.categories}
           currencies={this.state.currencies}
+          isClicked={this.state.isClicked}
+          chosen={this.state.currency}
+          handleClick={this.handleClick}
+          toggleMenu={this.toggleMenu}
+          category={this.state.category}
+          clickCategory={this.clickCategory}
         />
         <Router>
           <Switch>

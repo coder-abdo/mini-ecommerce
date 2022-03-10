@@ -4,7 +4,6 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider, InMemoryCache, ApolloClient } from "@apollo/client";
 import App from "./App";
 import { config } from "./config";
-import "./index.css";
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({

@@ -8,10 +8,20 @@ export default class Navbar extends Component {
   render() {
     return (
       <nav className={styles.navbar}>
-        <Categories cateogries={this.props.cateogries} />
+        <Categories
+          cateogries={this.props.cateogries}
+          chosen={this.props.category}
+          handleClick={this.props.clickCategory}
+        />
         <Logo />
         <div className={styles.actions}>
-          <Currency currencies={this.props.currencies} />
+          <Currency
+            currencies={this.props.currencies}
+            isClicked={this.props.isClicked}
+            chosen={this.props.chosen}
+            handleClick={this.props.handleClick}
+            toggleMenu={this.props.toggleMenu}
+          />
           <div className="cart">
             <CartIcon />
           </div>

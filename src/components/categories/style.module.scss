@@ -1,14 +1,21 @@
+@import "../../shared/shred.scss";
 .list {
   display: flex;
   list-style: none;
   &__item {
-    font-size: 2rem;
+    @include fontStyle(1.8rem, 600);
     text-transform: capitalize;
+    transition: color 0.3s;
+    padding-bottom: 1rem;
     &:not(:last-child) {
-      margin-right: 1.5rem;
+      margin-right: 3rem;
     }
     &:hover {
       cursor: pointer;
     }
+  }
+  .active {
+    color: var(--success);
+    border-bottom: 1px solid var(--success);
   }
 }
