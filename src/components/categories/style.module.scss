@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  list-style: none;
+  &__item {
+    font-size: 2rem;
+    text-transform: capitalize;
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

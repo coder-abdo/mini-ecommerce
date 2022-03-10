@@ -1,7 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
 :root {
   --primary: #343a40;
   --success: #28a745;
   --root-font-size: 62.5%;
+  --font: "Raleway", sans-serif;
+  --regular: 400;
+  --medium: 500;
+  --semi-bold: 600;
+  --bold: 700;
 }
 *,
 *::before,
@@ -15,6 +21,7 @@ html {
 }
 body {
   color: var(--primary);
+  font-family: var(--font);
 }
 .container {
   max-width: 120rem;

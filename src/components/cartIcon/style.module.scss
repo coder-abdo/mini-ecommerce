@@ -1,11 +1,7 @@
+@import "../../shared/shred.scss";
 .cart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex;
   &:hover {
     cursor: pointer;
-  }
-  svg {
-    width: 3rem;
   }
 }
