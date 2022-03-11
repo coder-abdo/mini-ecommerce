@@ -1,0 +1,73 @@
+@import "../../shared/shred.scss";
+.product {
+  position: relative;
+  overflow: hidden;
+  padding: 0 1rem 2rem;
+  @include flex(column);
+  transition: box-shadow 0.3s;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 1rem rgba($primary, 0.15);
+    .product__cart {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+  &--out {
+    opacity: 0.5;
+    user-select: none;
+    &:hover {
+      cursor: default;
+    }
+  }
+  height: 40rem;
+  &__image {
+    height: 80%;
+    width: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__outStock {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    transform: translate(-40%, -30%);
+    font-size: 2.5rem;
+  }
+  &__cart {
+    @extend %flex;
+    position: absolute;
+    top: 75%;
+    right: 10%;
+    background-color: var(--success);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    fill: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: transform 0.3s, opacity 0.3s;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__body {
+    margin-top: 2rem;
+  }
+  &__name {
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+  &__price {
+    font-weight: var(--medium);
+  }
+  &__name,
+  &__price {
+    font-size: 1.8rem;
+  }
+}

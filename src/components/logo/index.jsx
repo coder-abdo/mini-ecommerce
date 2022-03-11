@@ -10,7 +10,7 @@ export default class Logo extends Component {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#a)">
+          <g clipPath="url(#a)">
             <path
               d="M34.022 28.665a.543.543 0 0 1-.537.592H7.469a.543.543 0 0 1-.537-.59L8.796 5.912a.542.542 0 0 1 .538-.5h22.209c.28 0 .513.217.537.498l1.942 22.755Z"
               fill="#1DCF65"
@@ -39,8 +39,8 @@ export default class Logo extends Component {
               y2="9.901"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#52D67A" />
-              <stop offset="1" stop-color="#5AEE87" />
+              <stop stopColor="#52D67A" />
+              <stop offset="1" stopColor="#5AEE87" />
             </linearGradient>
             <clipPath id="a">
               <path

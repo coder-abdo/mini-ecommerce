@@ -1,15 +1,39 @@
 import { Component } from "react";
 import { gql, getApolloContext } from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PageDetailsList from "./pages/PageDetailList";
+import PageDetailsList from "./pages/pageDetailsList";
 import ProductDescription from "./pages/ProductDescription";
 import Cart from "./pages/Cart";
 import Navbar from "./components/navbar";
 import styles from "./App.module.scss";
+import Categories from "./components/categories";
+import Currency from "./components/currency";
+import Logo from "./components/logo";
+import CartIcon from "./components/cartIcon";
 const data = gql`
   {
     categories {
       name
+    }
+  }
+`;
+const products = gql`
+  {
+    categories {
+      products {
+        id
+        name
+        inStock
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
+        gallery
+        category
+      }
     }
   }
 `;
@@ -29,6 +53,7 @@ class App extends Component {
     category: "all",
     currencies: [],
     cart: [],
+    products: [],
     total: 0,
     currency: "$",
     isClicked: false,
@@ -39,6 +64,13 @@ class App extends Component {
         .categories,
       currencies: (await this.context.client.query({ query: currencies })).data
         .currencies,
+      products: [
+        ...new Set(
+          (await this.context.client.query({ query: products })).data.categories
+            .map((category) => category.products)
+            .flat()
+        ),
+      ],
     });
   }
   handleClick = (e) => {
@@ -57,22 +89,65 @@ class App extends Component {
       category: e.target.dataset.chosen,
     });
   };
+  addToCart = (product) => {
+    const newProduct = { ...product, quantity: 1 };
+    const existedProduct = this.state.cart.find(
+      (proudct) => proudct.id === newProduct.id
+    );
+    if (existedProduct) {
+      const newCart = this.state.cart.map((product) => {
+        if (product.id === existedProduct.id) {
+          product.quantity++;
+        }
+        return product;
+      });
+      this.setState({
+        cart: newCart,
+      });
+    } else {
+      this.setState({
+        cart: [...this.state.cart, newProduct],
+      });
+    }
+  };
   render() {
     return (
       <div className={styles.container}>
-        <Navbar
-          cateogries={this.state.categories}
-          currencies={this.state.currencies}
-          isClicked={this.state.isClicked}
-          chosen={this.state.currency}
-          handleClick={this.handleClick}
-          toggleMenu={this.toggleMenu}
-          category={this.state.category}
-          clickCategory={this.clickCategory}
-        />
+        <Navbar>
+          <Categories
+            cateogries={this.state.categories}
+            chosen={this.state.category}
+            handleClick={this.clickCategory}
+          />
+          <Logo />
+          <div className={styles.actions}>
+            <Currency
+              currencies={this.state.currencies}
+              isClicked={this.state.isClicked}
+              chosen={this.state.currency}
+              handleClick={this.handleClick}
+              toggleMenu={this.toggleMenu}
+            />
+            <div className="cart">
+              <CartIcon />
+            </div>
+          </div>
+        </Navbar>
+
         <Router>
           <Switch>
-            <Route exact path="/" component={PageDetailsList} />
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <PageDetailsList
+                  products={this.state.products}
+                  currency={this.state.currency}
+                  category={this.state.category}
+                  addToCart={this.addToCart}
+                />
+              )}
+            />
             <Route path="/products/:id" component={ProductDescription} />
             <Route path="/cart" component={Cart} />
           </Switch>

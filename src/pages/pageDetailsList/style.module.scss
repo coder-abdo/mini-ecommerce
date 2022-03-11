@@ -1,0 +1,11 @@
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem;
+}
+.categoryname {
+  font-size: 4.4rem;
+  font-weight: var(--regular);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
