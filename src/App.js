@@ -52,7 +52,7 @@ class App extends Component {
     categories: [],
     category: "all",
     currencies: [],
-    cart: [],
+    cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
     total: 0,
     currency: "$",
@@ -101,6 +101,7 @@ class App extends Component {
         }
         return product;
       });
+      localStorage.setItem("cart", JSON.stringify(newCart));
       this.setState({
         cart: newCart,
       });
@@ -110,6 +111,7 @@ class App extends Component {
       });
     }
   };
+
   render() {
     return (
       <div className={styles.container}>
@@ -129,7 +131,16 @@ class App extends Component {
               toggleMenu={this.toggleMenu}
             />
             <div className="cart">
-              <CartIcon />
+              <CartIcon
+                withBadge
+                count={
+                  this.state.cart.length > 0
+                    ? this.state.cart
+                        .map((product) => product.quantity)
+                        .reduce((prev, next) => prev + next)
+                    : 0
+                }
+              />
             </div>
           </div>
         </Navbar>
