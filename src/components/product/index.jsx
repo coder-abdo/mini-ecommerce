@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CartIcon from "../cartIcon";
+import ProductItems from "../productAttributes";
 import styles from "./style.module.scss";
 export default class Product extends Component {
   render() {
@@ -10,7 +11,7 @@ export default class Product extends Component {
       <div
         className={`${styles.product} ${
           this.props.product.inStock ? "" : styles["product--out"]
-        }`}
+        } ${this.props.inCart ? "product--inCart" : ""}`}
       >
         <div className={styles.product__image}>
           <img
@@ -28,13 +29,22 @@ export default class Product extends Component {
         {!this.props.product.inStock && (
           <h2 className={styles.product__outStock}>out of stock</h2>
         )}
-        {this.props.product.inStock && (
+        {this.props.product.inStock && !this.props.isInCart && (
           <div
             className={styles.product__cart}
             onClick={() => this.props.addToCart(this.props.product)}
           >
             <CartIcon />
           </div>
+        )}
+        {this.props.inCart && (
+          <>
+            <div className={styles.product__controllers}>
+              <button className={styles.product__btn}>&plus;</button>
+              <button className={styles.product__btn}>&minus;</button>
+            </div>
+            <ProductItems attributes={this.props.product.attributes} />
+          </>
         )}
       </div>
     );

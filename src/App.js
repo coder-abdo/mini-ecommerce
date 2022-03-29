@@ -10,6 +10,7 @@ import Categories from "./components/categories";
 import Currency from "./components/currency";
 import Logo from "./components/logo";
 import CartIcon from "./components/cartIcon";
+import CartOverLay from "./components/cartOverlay";
 const data = gql`
   {
     categories {
@@ -33,6 +34,15 @@ const products = gql`
         }
         gallery
         category
+        attributes {
+          id
+          name
+          items {
+            displayValue
+            value
+            id
+          }
+        }
       }
     }
   }
@@ -57,6 +67,7 @@ class App extends Component {
     total: 0,
     currency: "$",
     isClicked: false,
+    showCart: false,
   };
   async componentDidMount() {
     this.setState({
@@ -73,10 +84,16 @@ class App extends Component {
       ],
     });
   }
+
   handleClick = (e) => {
     this.setState({
       currency: e.target.dataset.currency,
       isClicked: false,
+    });
+  };
+  toggleCartOverLay = (e) => {
+    this.setState({
+      showCart: !this.state.showCart,
     });
   };
   toggleMenu = (e) => {
@@ -140,11 +157,15 @@ class App extends Component {
                         .reduce((prev, next) => prev + next)
                     : 0
                 }
+                handleClick={this.toggleCartOverLay}
               />
             </div>
           </div>
         </Navbar>
-
+        {this.state.showCart && (
+          <CartOverLay cart={this.state.cart} currency={this.state.currency} />
+        )}
+        <div className={this.state.showCart && styles.overlay} />
         <Router>
           <Switch>
             <Route

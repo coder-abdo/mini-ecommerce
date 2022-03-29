@@ -29,8 +29,20 @@ body {
   margin: auto;
   padding-left: 5rem;
   padding-right: 1rem;
+  position: relative;
 }
 .actions {
   display: flex;
   position: relative;
+}
+.overlay {
+  position: absolute;
+  top: 10.5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(57, 55, 72, 0.22);
+  min-height: 100vh;
+  height: 100%;
+  z-index: 10;
 }

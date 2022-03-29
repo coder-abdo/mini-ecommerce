@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+  z-index: 1;
+}
 .products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
