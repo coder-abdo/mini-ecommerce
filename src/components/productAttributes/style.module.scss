@@ -1,0 +1,19 @@
+@import "../../shared/shred.scss";
+.btn-group {
+  @include flex;
+  flex-wrap: wrap;
+}
+.btn {
+  @extend %btn;
+  &:not(:last-child) {
+    margin-right: 0.3rem;
+  }
+}
+.btn--circle {
+  border-radius: 50%;
+  border: none;
+}
+.btn--capacity {
+  width: 4rem;
+  height: 4rem;
+}

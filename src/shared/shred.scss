@@ -14,3 +14,13 @@ $primary: #1d1f22;
   justify-content: $jc;
   align-items: $ai;
 }
+%btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--primary);
+  @include fontStyle(1.4rem);
+  background-color: #fff;
+  &:hover {
+    cursor: pointer;
+  }
+}

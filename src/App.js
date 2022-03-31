@@ -64,7 +64,6 @@ class App extends Component {
     currencies: [],
     cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
-    total: 0,
     currency: "$",
     isClicked: false,
     showCart: false,
@@ -118,7 +117,6 @@ class App extends Component {
         }
         return product;
       });
-      localStorage.setItem("cart", JSON.stringify(newCart));
       this.setState({
         cart: newCart,
       });
@@ -127,9 +125,54 @@ class App extends Component {
         cart: [...this.state.cart, newProduct],
       });
     }
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
   };
-
+  decreaseFromCart = (product) => {
+    const newProduct = { ...product, quantity: 1 };
+    const existedProduct = this.state.cart.find(
+      (proudct) => proudct.id === newProduct.id
+    );
+    if (existedProduct) {
+      const newCart = this.state.cart.map((product) => {
+        if (product.id === existedProduct.id) {
+          product.quantity--;
+        }
+        return product;
+      });
+      this.setState({
+        cart: newCart,
+      });
+      if (product.quantity <= 0) {
+        this.removeProduct(product);
+      }
+    } else {
+      this.setState({
+        cart: [...this.state.cart, newProduct],
+      });
+    }
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
+  };
+  removeProduct = (removedProduct) => {
+    const removedItems = this.state.cart.filter(
+      (product) => product.id !== removedProduct.id
+    );
+    this.setState({ cart: removedItems });
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
+  };
   render() {
+    const symbol = this.state.currency;
+    const productsPricesAndQuantity = this.state.cart
+      .map((product) => {
+        const prices = product.prices
+          .filter((price) => price.currency.symbol === symbol)
+          .map((price) => price.amount)[0];
+        return { price: prices, quantity: product.quantity };
+      })
+      .map((product) => product.price * product.quantity);
+    const total = productsPricesAndQuantity.reduce(
+      (prev, next) => prev + next,
+      0
+    );
     return (
       <div className={styles.container}>
         <Navbar>
@@ -163,7 +206,14 @@ class App extends Component {
           </div>
         </Navbar>
         {this.state.showCart && (
-          <CartOverLay cart={this.state.cart} currency={this.state.currency} />
+          <CartOverLay
+            cart={this.state.cart}
+            currency={this.state.currency}
+            total={total}
+            priceSymbol={this.state.currency}
+            increasAmount={this.addToCart}
+            decreasAmount={this.decreaseFromCart}
+          />
         )}
         <div className={this.state.showCart && styles.overlay} />
         <Router>

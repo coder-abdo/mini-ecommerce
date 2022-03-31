@@ -1,0 +1,43 @@
+@import "../../shared/shred.scss";
+.product {
+  @include flex;
+  max-height: 10rem;
+  height: 100%;
+  margin-bottom: 4rem;
+  &__body {
+    width: 60%;
+    height: 100%;
+    @include flex(row, space-between);
+    padding-right: 1rem;
+  }
+
+  &__description {
+    @include flex(column, space-between);
+    height: 100%;
+  }
+  &__amount-container {
+    @include flex(column, space-between, center);
+    height: 100%;
+  }
+  &__title {
+    @include fontStyle(1.6rem, 300);
+    width: 6rem;
+  }
+  &__price,
+  &__quantity {
+    @include fontStyle(1.6rem, 700);
+  }
+
+  &__img {
+    width: 40%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+.btn {
+  @extend %btn;
+}

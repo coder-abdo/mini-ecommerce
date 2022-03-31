@@ -1,9 +1,49 @@
+@import "../../shared/shred.scss";
 .cartoverlay {
+  @include flex(column, space-between, stretch);
   position: absolute;
-  top: 10.5rem;
-  right: 0;
   padding: 1rem;
+  top: 12rem;
+  right: 5%;
   width: 32.5rem;
+  height: 100%;
+  max-height: 25rem;
   z-index: 100;
   background-color: #fff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.total {
+  @include flex(row, space-between, center);
+  margin-bottom: 3.5rem;
+  &__title {
+    @include fontStyle(1.6rem, 500);
+  }
+  &__amount {
+    @include fontStyle(1.6rem, 700);
+  }
+}
+.title {
+  @include fontStyle(1.6rem, 500);
+  margin-bottom: 2.5rem;
+  &--bold {
+    @include fontStyle(1.6rem, 700);
+  }
+}
+.btnContainer {
+  @include flex(row, space-between, center);
+}
+.btn {
+  @include fontStyle(1.4rem, 600);
+  border: 1px solid;
+  padding: 1.3rem 3.6rem;
+  text-decoration: none;
+  color: var(--primary);
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  &:hover {
+    background-color: var(--success);
+    color: #fff;
+    border-color: var(--success);
+    cursor: pointer;
+  }
 }

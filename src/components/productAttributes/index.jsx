@@ -5,17 +5,28 @@ export default class ProductAttributes extends Component {
     return (
       <div className={styles.container}>
         <div className={styles["btn-group"]}>
-          {this.props.attributes.items.map((item) => {
-            if (this.props.attributes.name === "Color") {
-              return (
+          {this.props.attributes.map((attr) => {
+            if (attr.name === "Color") {
+              return attr.items.map((item) => (
                 <button
-                  id={item.id}
-                  style={{ backgroundColor: item.value }}
-                  className={`${styles.btn} ${styles["btn--circle"]}`}
+                  key={item.id}
+                  style={{
+                    backgroundColor: item.value,
+                    width: "2.4rem",
+                    height: "2.4rem",
+                    border:
+                      item.value === "#FFFFFF" ? "1px solid #333" : "none",
+                    marginRight: "0.3rem",
+                    marginBottom: "0.2rem",
+                  }}
                 />
-              );
+              ));
             } else {
-              return <button id={item.id}>{item.displayValue}</button>;
+              return attr.items.map((item) => (
+                <button key={item.id} className={styles.btn}>
+                  {item.displayValue}
+                </button>
+              ));
             }
           })}
         </div>
