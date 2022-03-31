@@ -36,20 +36,25 @@ export default class CartOverlay extends Component {
       <div className={styles.cartoverlay}>
         <h2 className={styles.title}>
           <span className={styles["title--bold"]}>My Bag, </span>
-          {this.props.cart.length} Items
+          {
+            this.props.cart.filter((product) => product.quantity >= 1).length
+          }{" "}
+          Items
         </h2>
         {this.props.cart.length > 0 ? (
           <>
             <div>
-              {this.props.cart.map((product) => (
-                <ProductInCart
-                  key={product.id}
-                  product={product}
-                  symbol={this.props.currency}
-                  increasAmount={() => this.props.increasAmount(product)}
-                  decreasAmount={() => this.props.decreasAmount(product)}
-                />
-              ))}
+              {this.props.cart
+                .filter((product) => product.quantity >= 1)
+                .map((product) => (
+                  <ProductInCart
+                    key={product.id}
+                    product={product}
+                    symbol={this.props.currency}
+                    increasAmount={() => this.props.increasAmount(product)}
+                    decreasAmount={() => this.props.decreasAmount(product)}
+                  />
+                ))}
             </div>
             <div className={styles.total}>
               <h5 className={styles.total__title}>Total</h5>

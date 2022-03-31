@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Product from "../../components/product";
 import styles from "./style.module.scss";
+
 export default class PageDetailList extends Component {
   render() {
     return (
@@ -15,6 +16,7 @@ export default class PageDetailList extends Component {
             )
             .map((product) => (
               <Product
+                goToProduct={this.handleGoToProduct}
                 key={product.id}
                 product={product}
                 symbol={this.props.currency}

@@ -2,7 +2,7 @@ import { Component } from "react";
 import { gql, getApolloContext } from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageDetailsList from "./pages/pageDetailsList";
-import ProductDescription from "./pages/ProductDescription";
+import ProductDescription from "./pages/productDetails";
 import Cart from "./pages/Cart";
 import Navbar from "./components/navbar";
 import styles from "./App.module.scss";
@@ -110,6 +110,7 @@ class App extends Component {
     const existedProduct = this.state.cart.find(
       (proudct) => proudct.id === newProduct.id
     );
+
     if (existedProduct) {
       const newCart = this.state.cart.map((product) => {
         if (product.id === existedProduct.id) {
@@ -143,7 +144,7 @@ class App extends Component {
         cart: newCart,
       });
       if (product.quantity <= 0) {
-        this.removeProduct(product);
+        return this.removeProduct(product);
       }
     } else {
       this.setState({
@@ -166,7 +167,10 @@ class App extends Component {
         const prices = product.prices
           .filter((price) => price.currency.symbol === symbol)
           .map((price) => price.amount)[0];
-        return { price: prices, quantity: product.quantity };
+        return {
+          price: prices,
+          quantity: product.quantity >= 1 ? product.quantity : 0,
+        };
       })
       .map((product) => product.price * product.quantity);
     const total = productsPricesAndQuantity.reduce(
@@ -230,7 +234,16 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/products/:id" component={ProductDescription} />
+            <Route
+              path="/products/:id"
+              component={(props) => (
+                <ProductDescription
+                  symbol={this.state.currency}
+                  addToCart={this.addToCart}
+                  {...props}
+                />
+              )}
+            />
             <Route path="/cart" component={Cart} />
           </Switch>
         </Router>

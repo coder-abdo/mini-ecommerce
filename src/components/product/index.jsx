@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import CartIcon from "../cartIcon";
 import styles from "./style.module.scss";
 export default class Product extends Component {
@@ -13,10 +14,12 @@ export default class Product extends Component {
         } ${this.props.inCart ? "product--inCart" : ""}`}
       >
         <div className={styles.product__image}>
-          <img
-            src={this.props.product.gallery[0]}
-            alt={this.props.product.name}
-          />
+          <Link to={`/products/${this.props.product.id}`}>
+            <img
+              src={this.props.product.gallery[0]}
+              alt={this.props.product.name}
+            />
+          </Link>
         </div>
         <div className={styles.product__body}>
           <h3 className={styles.product__name}>{this.props.product.name}</h3>
