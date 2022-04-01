@@ -2,35 +2,6 @@ import React, { Component } from "react";
 import ProductInCart from "../productInCart";
 import styles from "./style.module.scss";
 export default class CartOverlay extends Component {
-  // state = {
-  //   total: 0,
-  //   symbol: "$",
-  // };
-  // componentDidMount() {
-  //   const { symbol } = this.props;
-  //   const priceSymbol = this.props.cart.map((product) => {
-  //     const price = product.prices
-  //       .filter((price) => price.symbol === symbol)
-  //       .map((price) => price.currency.symbol)[0];
-  //     return price;
-  //   })[0];
-  //   const productsPricesAndQuantity = this.props.cart
-  //     .map((product) => {
-  //       const prices = product.prices
-  //         .filter((price) => price.symbol === symbol)
-  //         .map((price) => price.amount)[0];
-  //       return { price: prices, quantity: product.quantity };
-  //     })
-  //     .map((product) => product.price * product.quantity);
-  //   const total = productsPricesAndQuantity.reduce((prev, next) => prev + next);
-  //   this.setState({
-  //     symbol: priceSymbol,
-  //     total,
-  //   });
-  // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevProps, prevState);
-  // }
   render() {
     return (
       <div className={styles.cartoverlay}>

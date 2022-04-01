@@ -1,0 +1,8 @@
+@import "../../shared/shred.scss";
+.cart {
+  &__title {
+    @include fontStyle(3.2rem, 700);
+    text-transform: uppercase;
+    margin-bottom: 6rem;
+  }
+}

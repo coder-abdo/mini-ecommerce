@@ -3,7 +3,7 @@ import { gql, getApolloContext } from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageDetailsList from "./pages/pageDetailsList";
 import ProductDescription from "./pages/productDetails";
-import Cart from "./pages/Cart";
+import Cart from "./pages/cart";
 import Navbar from "./components/navbar";
 import styles from "./App.module.scss";
 import Categories from "./components/categories";
@@ -244,7 +244,20 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/cart" component={Cart} />
+            <Route
+              path="/cart"
+              component={(props) => (
+                <Cart
+                  cart={this.state.cart}
+                  currency={this.state.currency}
+                  total={total}
+                  priceSymbol={this.state.currency}
+                  increasAmount={this.addToCart}
+                  decreasAmount={this.decreaseFromCart}
+                  {...props}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </div>
